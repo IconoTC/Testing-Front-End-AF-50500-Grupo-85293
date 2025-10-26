@@ -1,0 +1,20 @@
+{
+  "name": "testing.front-in-situ-",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Curso de Testing Frontend con Vitest y TypeScript **Mono-repositorio** **multi-paquete** para Vitest con TypeScript.",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "projects/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Alejandro Cerezo",
+  "license": "ISC",
+  "prettier": {
+    "singleQuote": true
+  }
+}
