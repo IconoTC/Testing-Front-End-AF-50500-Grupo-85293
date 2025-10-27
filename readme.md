@@ -19,3 +19,32 @@ Temario
 - Testing Library
 - Pruebas de Accesibilidad
 - Integración DevOps
+
+## Desarrollo del curso
+
+### Día 1. Lunes 27/10/2025
+
+- Presentación del curso, el formador y los alumnos.
+- Introducción a las pruebas de software.
+- Configuración del entorno de desarrollo con Vitest.
+  - Monoreppo con npm
+  - Proyecto con Vite - TS - React - Vitest - Testing Library
+  - Proyecto con TS y Vitest
+- Elementos de los tests unitarios
+  - Estructura de los tests. Suites. Teardown o Setup.
+  - Patrones: Given, When, Then (Gherkin). Arrange, Act, Assert.
+  - Primeros tests unitarios con Vitest
+    - Matches
+    - Matches de errores
+
+- [Descanso]
+
+- Taller de TDD: Factorial
+  - Desarrollo del procesoo
+  - Refactorización: Automatizando casos de uso
+  - Casos de uso extremos (corner cases) y casos de uso límite (boundary cases)
+  - Extracción de funciones auxiliares (mencionado)
+- Test de Funciones
+  - Asincronía
+  - Mocks y Spies
+  - Caso real: getUsers con fetch y axios (creado sin tests)

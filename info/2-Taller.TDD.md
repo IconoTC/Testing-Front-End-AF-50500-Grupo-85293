@@ -4,6 +4,7 @@
   - [Función factorial usando TDD](#función-factorial-usando-tdd)
   - [Automatizando casos de uso](#automatizando-casos-de-uso)
   - [Casos de uso extremos (corner cases) y casos de uso límite (boundary cases)](#casos-de-uso-extremos-corner-cases-y-casos-de-uso-límite-boundary-cases)
+  - [Extracción de funciones auxiliares](#extracción-de-funciones-auxiliares)
 
 
 ## Función factorial usando TDD
@@ -151,7 +152,11 @@ test("it should throw an error when argument is 5.5", () => {
 });
 ```
 
-En este punto podríamos abordar una mayor refactorización al hilo de un patron de diseño conocido como **single responsibility** (la S del acrónimo SOLID), que nos permitiría separar la responsabilidad de la función `factorial` en dos funciones, una que se encargue de calcular el factorial y otra que se encargue de comprobar si el argumento es válido.
+## Extracción de funciones auxiliares
+
+Una refactorización habitual en TDD es la extracción de funciones auxiliares. Consiste en identificar partes del código que se pueden extraer en funciones independientes para mejorar la legibilidad y mantenibilidad del código.
+
+Aplicariamos así el patron de diseño conocido como **single responsibility** (la S del acrónimo SOLID), que nos permitiría separar la responsabilidad de la función `factorial` en dos funciones, una que se encargue de calcular el factorial y otra que se encargue de comprobar si el argumento es válido.
 
 ```js
 // factorial.js
@@ -230,3 +235,4 @@ function isValidLikeNumber(n) {
   return typeof n === "number" && !isNaN(n);
 }
 ```
+
