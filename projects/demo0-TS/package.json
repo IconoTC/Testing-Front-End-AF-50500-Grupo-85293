@@ -1,0 +1,22 @@
+{
+  "name": "demo0-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "vitest",
+    "test:c": "vitest run --coverage",
+    "lint": "eslint . --ext .ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.3"
+  }
+}
