@@ -8,6 +8,7 @@
     "dev": "tsc -w",
     "test": "vitest",
     "test:c": "vitest run --coverage",
+    "test:cw": "vitest run --coverage --watch",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
