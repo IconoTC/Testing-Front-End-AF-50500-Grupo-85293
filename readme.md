@@ -56,13 +56,28 @@ Temario
   - Testando getUsers con fetch y axios
   - Spies en Vitest
 - Tests de Clases
+
   - Interfaces
   - Capa repositorio
   - Capa servicio estado
 
 - [Descanso]
 
-<!--
 - Tests de Componentes con Testing Library
+- Conceptos básicos de Testing Library
+  - Renderizado de componentes
+  - Búsqueda de elementos
+  - Simulación de eventos
+- Primeros tests de componentes a partir de la App ejemplo
+  - Footer: render element
+  - Header: props
+  - Counter: events
+  - Card: children
+  - App: integración v. mock de componentes
+
+<!--
+### Día 3. Miércoles 29/10/2025
+
+- Nuevo proyecto
 
 -->
