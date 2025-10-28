@@ -1,0 +1,18 @@
+import { Footer } from '../footer/footer';
+import { Header } from '../header/header';
+import { Counter } from '../counter/counter';
+import './App.css';
+
+export const App: React.FC = () => {
+    const appTitle = 'Vite + React + TS';
+
+    return (
+        <>
+            <Header title={appTitle} />
+            <main>
+                <Counter />
+            </main>
+            <Footer />
+        </>
+    );
+};
