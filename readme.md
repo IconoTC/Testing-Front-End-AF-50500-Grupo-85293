@@ -31,6 +31,7 @@ Temario
   - Proyecto con Vite - TS - React - Vitest - Testing Library
   - Proyecto con TS y Vitest
 - Elementos de los tests unitarios
+
   - Estructura de los tests. Suites. Teardown o Setup.
   - Patrones: Given, When, Then (Gherkin). Arrange, Act, Assert.
   - Primeros tests unitarios con Vitest
@@ -48,3 +49,20 @@ Temario
   - Asincronía
   - Mocks y Spies
   - Caso real: getUsers con fetch y axios (creado sin tests)
+
+<!--
+### Día 2. Martes 28/10/2025
+
+- Test de Funciones (continuación)
+  - Testeando getUsers con fetch y axios
+  - Spies en Vitest
+- Tests de Clases
+  - Interfaces
+  - Capa repositorio
+  - Capa servicio estado
+
+[Descanso]
+
+- Tests de Componentes con Testing Library
+
+-->

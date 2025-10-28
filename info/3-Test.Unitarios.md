@@ -157,6 +157,13 @@ test('la promesa es rechazada', async () => {
 
 Vitest proporciona una serie de funciones que nos permiten crear mocks y spies, que como ya hemos explicado, nos permiten simular el comportamiento de las funciones y métodos que se utilizan en los test unitarios.
 
+Técnicamente se habla de **stubs**, distinguiendo
+
+- **mocking** cuando se crea una versión simulada de una función o módulo
+- **spy** es una función que observa y registra las llamadas a otra función sin alterar su comportamiento.
+
+Sin embargo, en la práctica, ambos conceptos están muy relacionados y a menudo se utilizan juntos en los tests unitarios. Así sucede en el caso de Vitest, donde los mocks incluyen funcionalidades de spy para observar cómo se utilizan las funciones simuladas.
+
 Mocking es una técnica fundamental en las pruebas unitarias y de integración, donde se simulan partes del sistema que no son el foco
 de la prueba, permitiendo así aislar y controlar el comportamiento de las unidades bajo prueba.
 
@@ -167,14 +174,23 @@ Este método crea una función simulada que puedes controlar y observar durante 
 
 ```js
 // 06-mock.test.js
-test('la función es llamada con los argumentos correctos', () => {
-  const myMock = vi.fn();
-  myMock('arg1', 'arg2');
-  expect(myMock).toHaveBeenCalledWith('arg1', 'arg2');
+import type { Mock } from 'vitest';
+
+const mock: Mock = vi.fn();
+const fn = (): void => undefined;
+
+describe('using mocks to test a function', () => {
+  it('should call the mock function', () => {
+    const result = mock();
+    fn();
+    expect(mock).toHaveBeenCalledTimes(1);
+    expect(result).toBeUndefined();
+    // expect(fn).toHaveBeenCalled(); No se puede espiar una función normal
+  });
 });
 ```
 
-Por defecto, el mock creado inicialmente carece de ninguna implementación, por lo que no hace nada cuando se le llama, limitándose a devolver undefined, como corresponde a cualquier función void. Sin embargo, el mock incluye numerosos métodos que permiten configurar su comportamiento.
+Como se ve en el ejemplo, por defecto, el mock creado inicialmente carece de ninguna implementación, por lo que no hace nada cuando se le llama, limitándose a devolver undefined, como corresponde a cualquier función void. Sin embargo, el mock incluye numerosos métodos que permiten configurar su comportamiento.
 
 El más genérico de estos métodos es `mockImplementation(fn)`, que permite definir la implementación de la función simulada, junto con su variante `mockImplementationOnce(fn)` que permite definir la implementación que ejecutará el mock la primera vez que se le llame.
 
@@ -190,17 +206,17 @@ Existen además varios atajos para configurar el comportamiento de un mock espec
 Por ejemplo:
 
 ```js
-test('la función es llamada con los argumentos correctos', () => {
-  const myMock = vi
+test('should call the mock function with the correct arguments', () => {
+  const mock = vi
     .fn()
     .mockReturnValueOnce('mocked value')
     .mockReturnValueOnce(true);
-  let result = myMock('arg1', 'arg2');
-  expect(myMock).toHaveBeenCalledWith('arg1', 'arg2');
+  let result = mock('arg1', 'arg2');
+  expect(mock).toHaveBeenCalledWith('arg1', 'arg2');
   expect(result).toBe('mocked value');
-  result = myMock('arg1', 'arg2');
+  result = mock('arg1', 'arg2');
   expect(result).toBe(true);
-  result = myMock('arg1', 'arg2');
+  result = mock('arg1', 'arg2');
   expect(result).toBeUndefined();
 });
 ```
@@ -237,10 +253,20 @@ import { fetchDataPromise } from './05-async.js';
 vi.mock('./05-async.js');
 ```
 
+También existe la posibilidad de proporcionar una implementación personalizada para el módulo simulado, utilizando una función que devuelve un objeto con las funciones y clases que queremos simular.
+
+```ts
+vi.mock('./05-async.js', () => {
+  return {
+    fetchDataPromise: vi.fn().mockResolvedValue('mocked data'),
+  };
+});
+```
+
 Una vez que hemos simulado el módulo, la función `fetchDataPromise` y todas las que contengan se convierte en un mock (tipo `Mock` de Vitest), y carecen de implementación por lo que devuelven undefined.
 
 ```ts
-test('la función fetchDataPromise es llamada y devuelve undefined', () => {
+test('function fetchDataPromise should be called and return undefined', () => {
   const data = fetchDataPromise();
   expect(fetchDataPromise).toHaveBeenCalled();
   expect(data).toBeUndefined();
@@ -255,11 +281,32 @@ Para que TypeScript no nos de errores al intentar configurar el mock, es necesar
 import { fetchDataPromise } from './05-async.js';
 vi.mock('./05-async.js');
 
-test('la función fetchDataPromise es llamada y devuelve el valor simulado', async () => {
+test('should return mocked data from fetchDataPromise', async () => {
   (fetchDataPromise as Mock).mockResolvedValue('mocked data');
   const data = await fetchDataPromise();
   expect(fetchDataPromise).toHaveBeenCalled();
   expect(data).toBe('mocked data');
+});
+```
+
+TAmbién es posible que el mock simule los cases en los que la promesa es rechazada:
+
+```ts
+test('should handle rejected promise from fetchDataPromise', async () => {
+  (fetchDataPromise as Mock).mockRejectedValue(new Error('mocked error'));
+  await expect(fetchDataPromise()).rejects.toThrow('mocked error');
+  expect(fetchDataPromise).toHaveBeenCalled();
+});
+```
+
+Por último, es importante tener en cuenta que los mocks de módulos se mantienen entre tests, por lo que es recomendable resetearlos después de cada test para evitar interferencias entre ellos. Para ello, podemos utilizar el hook `afterEach` de Vitest.
+
+```ts
+import { fetchDataPromise } from './05-async.js';
+vi.mock('./05-async.js');
+
+afterEach(() => {
+  vi.resetAllMocks();
 });
 ```
 
@@ -627,35 +674,35 @@ Para usar el mock del repositorio, simplemente creamos un objeto que implemente 
 
 ```ts
 const mockNotes: Note[] = [
-    { id: '1', title: 'Note 1', content: 'Content 1' },
-    { id: '2', title: 'Note 2', content: 'Content 2' },
+  { id: '1', title: 'Note 1', content: 'Content 1' },
+  { id: '2', title: 'Note 2', content: 'Content 2' },
 ];
 
 describe('NotesState', () => {
-    let notesState: NotesState;
-    let notesRepoMock: Repo<Note, Omit<Note, 'id'>>;
+  let notesState: NotesState;
+  let notesRepoMock: Repo<Note, Omit<Note, 'id'>>;
 
-    beforeEach(() => {
-        notesRepoMock = {
-            getAll: vi.fn(),
-            findById: vi.fn(),
-            save: vi.fn(),
-            update: vi.fn(),
-            delete: vi.fn(),
-        };
-        notesState = new NotesState(notesRepoMock);
+  beforeEach(() => {
+    notesRepoMock = {
+      getAll: vi.fn(),
+      findById: vi.fn(),
+      save: vi.fn(),
+      update: vi.fn(),
+      delete: vi.fn(),
+    };
+    notesState = new NotesState(notesRepoMock);
+  });
+
+  describe('load', () => {
+    test('should load notes from the repository and update the state', async () => {
+      (notesRepoMock.getAll as Mock).mockResolvedValue(mockNotes);
+
+      await notesState.load();
+
+      expect(notesRepoMock.getAll).toHaveBeenCalled();
+      expect(notesState.notes).toEqual(mockNotes);
     });
-
-    describe('load', () => {
-        test('should load notes from the repository and update the state', async () => {
-            (notesRepoMock.getAll as Mock).mockResolvedValue(mockNotes);
-
-            await notesState.load();
-
-            expect(notesRepoMock.getAll).toHaveBeenCalled();
-            expect(notesState.notes).toEqual(mockNotes);
-        });
-    });
+  });
 });
 ```
 

@@ -8,8 +8,7 @@ const mock: Mock = vi.fn();
 const fn = (): void => undefined
 
 describe("mock examples", () => {
-
-
+    
     afterEach(() => {
         vi.clearAllMocks();
     });
