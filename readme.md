@@ -41,7 +41,7 @@ Temario
 - [Descanso]
 
 - Taller de TDD: Factorial
-  - Desarrollo del procesoo
+  - Desarrollo del proceso TDD
   - Refactorización: Automatizando casos de uso
   - Casos de uso extremos (corner cases) y casos de uso límite (boundary cases)
   - Extracción de funciones auxiliares (mencionado)
@@ -50,19 +50,19 @@ Temario
   - Mocks y Spies
   - Caso real: getUsers con fetch y axios (creado sin tests)
 
-<!--
 ### Día 2. Martes 28/10/2025
 
 - Test de Funciones (continuación)
-  - Testeando getUsers con fetch y axios
+  - Testando getUsers con fetch y axios
   - Spies en Vitest
 - Tests de Clases
   - Interfaces
   - Capa repositorio
   - Capa servicio estado
 
-[Descanso]
+- [Descanso]
 
+<!--
 - Tests de Componentes con Testing Library
 
 -->
