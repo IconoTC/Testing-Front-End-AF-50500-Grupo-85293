@@ -7,9 +7,13 @@ export type User = {
 
 const url = 'https://jsonplaceholder.typicode.com/users';
 
-export const getUsers = async (): Promise<User[]> => {
+export const getUsersByFetch = async (): Promise<User[]> => {
   const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
   const data = await response.json();
+
   return data;
 }
 
