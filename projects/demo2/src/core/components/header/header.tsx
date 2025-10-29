@@ -5,10 +5,10 @@ import './header.css';
 
 type Props = {
     title: string;
-};
+} & React.PropsWithChildren;
 
 
-export const Header: React.FC<Props> = ({ title }) => {
+export const Header: React.FC<Props> = ({ title, children }) => {
     return (
         <header>
             <div>
@@ -24,6 +24,7 @@ export const Header: React.FC<Props> = ({ title }) => {
                 </a>
             </div>
             <h1>{title}</h1>
+            {children}
         </header>
     );
 };

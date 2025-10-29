@@ -11,4 +11,15 @@ describe('Header Component', () => {
         });
         expect(element).toBeInTheDocument();
     });
+    test('should render children inside header', () => {
+        const mockTitle = 'Test Header';
+        const mockChildText = 'Mock Child';
+        render(
+            <Header title={mockTitle}>
+                <div>{mockChildText}</div>
+            </Header>
+        );
+        const childElement = screen.getByText(mockChildText);
+        expect(childElement).toBeInTheDocument();
+    });
 });
