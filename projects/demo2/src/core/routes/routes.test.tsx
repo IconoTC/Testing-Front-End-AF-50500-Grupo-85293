@@ -5,10 +5,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { Home } from '../../pages/home/home';
 import { About } from '../../pages/about/about';
 import { Notes } from '../../pages/notes/notes';
+import { User } from '../../pages/user/user';
 
 vi.mock('../../pages/home/home');
 vi.mock('../../pages/about/about');
 vi.mock('../../pages/notes/notes');
+vi.mock('../../pages/user/user');
 
 describe('Routes', () => {
     test('should route to root page', () => {
@@ -43,6 +45,16 @@ describe('Routes', () => {
         render(<RouterProvider router={mockRouter} />);
         await waitFor(() => {
             expect(Notes).toHaveBeenCalled();
+        });
+    });
+
+    test('should route to user page', async () => {
+        const mockRouter = createMemoryRouter(routes, {
+            initialEntries: ['/user'],
+        });
+        render(<RouterProvider router={mockRouter} />);
+        await waitFor(() => {
+            expect(User).toHaveBeenCalled();
         });
     });
 
