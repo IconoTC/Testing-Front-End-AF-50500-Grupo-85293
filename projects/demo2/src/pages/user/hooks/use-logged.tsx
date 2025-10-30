@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Login, User } from '../types/user';
 import { loginUser } from '../services/user-services';
 
-type UseLogged = {
+export type UseLogged = {
     loading: boolean;
     error: string | null;
     user: User | null;
