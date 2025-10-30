@@ -31,7 +31,7 @@ describe('FormRegister', () => {
         expect(formElement).toBeInTheDocument();
     });
 
-    test.skip('should be completed by the user', async () => {
+    test('should be completed by the user', async () => {
         const formElement = screen.getByRole('form');
         const nameInput = screen.getByPlaceholderText(
             /nombre/i
@@ -69,9 +69,6 @@ describe('FormRegister', () => {
 
         await userEvent.click(submitButton);
 
-        expect(registerUser).toHaveBeenCalled();
-        // expect(registerUser).toHaveBeenCalledWith(mockData);
-
-        //expect(console.log).toHaveBeenCalledWith('Formulario enviado');
+        expect(registerUser).toHaveBeenCalledWith(mockData);
     });
 });

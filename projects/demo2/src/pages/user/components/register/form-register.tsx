@@ -104,10 +104,7 @@ export const FormRegister: React.FC = () => {
         <Card>
             <form
                 aria-label="Register Form"
-                onSubmit={(ev: React.FormEvent<HTMLFormElement>) => {
-                    console.log('Form submit');
-                    handleSubmit(ev);
-                }}
+                onSubmit={handleSubmit}
             >
                 <h3>Registro</h3>
                 <p>Ejemplo de formulario NO controlado'</p>
