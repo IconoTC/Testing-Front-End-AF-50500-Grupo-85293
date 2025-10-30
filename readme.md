@@ -75,9 +75,46 @@ Temario
   - Card: children
   - App: integración v. mock de componentes
 
-<!--
 ### Día 3. Miércoles 29/10/2025
 
 - Nuevo proyecto
+- Tests de Componentes con rutas
+  - Configuración de rutas con React Router
+  - Testando rutas sin carga diferida (lazy)
+  - Testando rutas con carga diferida (lazy)
+- [Descanso]
 
--->
+- Formularios y validaciones
+  - Testando formularios controlados
+  - Testando formularios no controlados
+- Gestión de asincronía en tests
+
+### Día 4. Jueves 30/10/2025
+
+- Formularios y validaciones (review )
+- Gestión de asincronía en tests (review )
+- Custom hooks
+  - Introducción a los custom hooks
+  - Testando custom hooks desde el componente
+- Context API
+
+  - Introducción a la Context API de React
+  - Testando componentes que consumen contextos
+
+- Pruebas e2e y de Accesibilidad con Playwright
+
+  - Introducción a Playwright
+  - Instalación. Browsers
+  - Ejemplos de tests e2e
+  - Comandos disponibles
+    - CLI
+    - Report
+    - UI
+
+- [Descanso]
+
+  <!-- - Testando accesibilidad con Playwright
+  - Configuración del entorno para pruebas E2E
+    - Navegación por teclado
+    - Validación de roles ARIA
+    - Captura y comparación de snapshots de accesibilidad -->
